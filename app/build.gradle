@@ -1,16 +1,17 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.protobuf'
     id 'org.jetbrains.kotlin.android'
 }
 
 android {
     namespace 'com.example.dialogflowvoicegrpc'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.dialogflowvoicegrpc"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -30,15 +31,72 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding true
+    }
+    sourceSets {
+        main {
+            java {
+                srcDir 'src/generated/debug/java'
+                srcDir 'src/generated/debug/grpc'
+            }
+            kotlin {
+                srcDir 'src/generated/debug/grpckt'
+            }
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+    }
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.21.5"
+    }
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.49.0'
+        }
+        grpckt {
+            artifact = "io.grpc:protoc-gen-grpc-kotlin:1.3.0:jdk8@jar"
+        }
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                java { option 'lite' }
+            }
+            task.plugins {
+                grpc { option 'lite' }
+                grpckt {option 'lite' }
+            }
+        }
+    }
+    generatedFilesBaseDir = "$projectDir/src/generated"
 }
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    implementation 'io.grpc:grpc-auth:1.49.0'
+    implementation 'io.grpc:grpc-okhttp:1.49.0'
+    implementation 'io.grpc:grpc-protobuf-lite:1.49.0'
+    implementation "io.grpc:grpc-kotlin-stub:1.3.0"
+    compileOnly 'org.apache.tomcat:annotations-api:6.0.53'
+
+    implementation "com.google.protobuf:protobuf-javalite:3.21.5"
+    implementation 'com.google.auth:google-auth-library-oauth2-http:1.11.0'
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
+
     testImplementation 'junit:junit:4.13.2'
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }

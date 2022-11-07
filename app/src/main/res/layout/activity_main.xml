@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,12 +8,61 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/audio_hint_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:hint="@string/audio_hint"
+        android:gravity="center"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        app:layout_constraintBottom_toTopOf="@+id/bulk_text_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/bulk_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/non_streaming_audio"
+        android:gravity="center"
+        android:layout_marginStart="16dp"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/audio_hint_view"
+        app:layout_constraintBottom_toTopOf="@+id/streaming_text_view"/>
+
+    <ImageView
+        android:id="@+id/bulk_button_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_mic_off_48"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/audio_hint_view"
+        app:layout_constraintBottom_toTopOf="@+id/streaming_text_view"
+        android:contentDescription="@string/audio_button" />
+
+    <TextView
+        android:id="@+id/streaming_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/streaming_audio"
+        android:gravity="center"
+        android:layout_marginStart="16dp"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bulk_text_view" />
+
+    <ImageView
+        android:id="@+id/streaming_button_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_mic_off_48"
+        android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/bulk_text_view"
+        android:contentDescription="@string/audio_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

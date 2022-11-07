@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">dialogflow voice grpc</string>
+    <string name="audio_hint">Click any icon below for voice input</string>
+    <string name="audio_button">Audio button</string>
+    <string name="non_streaming_audio">Non-streaming audio</string>
+    <string name="streaming_audio">Streaming audio</string>
 </resources>
